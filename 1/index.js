@@ -19,6 +19,14 @@ app.use(express.static('public'));
 
 
 
+//240921_2302_glory : go+sendRequest를 무차별로 받을때 
+app.get('/api/test', (req, res) => {
+  console.log('go서버에서 연락이 왔어요.');
+  //res.send('Test response');//일단 주석
+});
+
+
+
 
 
 
