@@ -1,0 +1,17 @@
+{
+  "name": "webrtc-video-server",
+  "version": "1.0.0",
+  "description": "WebRTC video streaming server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "socket.io": "^4.7.5",
+    "ws": "^8.18.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
