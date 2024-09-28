@@ -3,6 +3,10 @@ const https = require('https');
 const fs = require('fs');
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser'); //240922_0220_glory : POST 요청의 JSON 데이터를 파싱하기 위한 body-parser 사용
+const sharp = require('sharp'); // 240928_2314_glory : 이미지 영상처리를 위한 간이 라이브러리
+const axios = require('axios'); // 240928_2329_glory : HTTP 요청을 위한 axios 추가
+
+
 
 
 // SSL 인증서 로드
@@ -36,6 +40,66 @@ PayloadTooLargeError: request entity too large
 mac@macui-MacBookPro 1 % 
 */
 app.use(bodyParser.json({ limit: '100mb' })); // 240922_0141_glory : 기본 크기 제한을 100MB로 설정
+
+
+
+
+
+
+
+
+
+
+
+// 240928_2314_glory : 새로운 필드 추가: /processed-image
+// public/sample.jpg 파일을 이미지 처리한 후 localhost:10874로 전송하는 필드
+app.get('/processed-image', (req, res) => {
+  const inputImagePath = 'public/sample.jpg'; // 처리할 이미지 경로
+
+  console.log('이미지 처리 시작');
+
+  sharp(inputImagePath)
+    .resize(200, 200) // 이미지 크기 조정 (예: 200x200으로 리사이즈)
+    .toBuffer() // 이미지 데이터를 버퍼로 변환
+    .then((data) => {
+      console.log(`이미지 처리 완료, 크기: ${data.length} bytes`);
+
+      const agent = new https.Agent({
+        rejectUnauthorized: false, // SSL 검증 비활성화
+      });
+
+      // 이미지 데이터를 10874 포트의 NestJS 서버로 전송
+      axios.post('https://localhost:10874/upload', data, {
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+        httpsAgent: agent, // SSL 옵션 추가
+      })
+      .then((response) => {
+        console.log('이미지 전송 성공:', response.data);
+        res.status(200).send('이미지 전송 완료');
+      })
+      .catch((err) => {
+        console.error('이미지 전송 중 오류 발생:', err);
+        res.status(500).send('이미지 전송 실패');
+      });
+    })
+    .catch((err) => {
+      console.error('이미지 처리 중 오류 발생:', err);
+      res.status(500).send('이미지 처리 오류');
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
