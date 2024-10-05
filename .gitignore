@@ -6,7 +6,8 @@ target/
 received_data.log
 myenv/
 __pycache__/
-
+myenv/
+__pycache__/
 
 # compiled output
 /dist
