@@ -4,10 +4,8 @@ server.cert
 captures/
 target/
 received_data.log
-myenv/
-__pycache__/
-myenv/
-__pycache__/
+5/myenv/
+5/__pycache__/
 
 # compiled output
 /dist
