@@ -102,6 +102,60 @@ app.get('/processed-image', (req, res) => {
 
 
 
+// 240928_2314_glory : 새로운 필드 추가: processed-image_fastapi
+// public/sample.jpg 파일을 이미지 처리한 후 localhost:20873으로 전송하는 필드
+// 241004_1815_glory : 실행방법 : 크롬창 열고 https://localhost:10873/processed-image_fastapi
+app.get('/processed-image_fastapi', (req, res) => {
+  const inputImagePath = 'public/sample.jpg'; // 처리할 이미지 경로
+
+  console.log('이미지 처리 시작');
+
+  sharp(inputImagePath)
+    .resize(200, 200) // 이미지 크기 조정 (예: 200x200으로 리사이즈)
+    .toBuffer() // 이미지 데이터를 버퍼로 변환
+    .then((data) => {
+      console.log(`이미지 처리 완료, 크기: ${data.length} bytes`);
+
+      const agent = new https.Agent({
+        rejectUnauthorized: false, // SSL 검증 비활성화
+      });
+
+      // 이미지 데이터를 10874 포트의 NestJS 서버로 전송
+      axios.post('https://localhost:20873/upload', data, {
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+        httpsAgent: agent, // SSL 옵션 추가
+      })
+      .then((response) => {
+        console.log('이미지 전송 성공:', response.data);
+        res.status(200).send('이미지 전송 완료');
+      })
+      .catch((err) => {
+        console.error('이미지 전송 중 오류 발생:', err);
+        res.status(500).send('이미지 전송 실패');
+      });
+    })
+    .catch((err) => {
+      console.error('이미지 처리 중 오류 발생:', err);
+      res.status(500).send('이미지 처리 오류');
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //240921_2302_glory : go+sendRequest를 무차별로 받을때 
