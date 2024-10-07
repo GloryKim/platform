@@ -51,6 +51,96 @@ app.use(bodyParser.json({ limit: '100mb' })); // 240922_0141_glory : 기본 크�
 
 
 
+
+
+
+
+
+//241007_1420_glory : 아래쪽에 있는 받는쪽 코드를 받는쪽 PC에 붙여 놓고크롬창 옆에 내용을 입력하면 전달되고 https://localhost:10873/time-monitor
+// 현재 시간을 가져오는 함수
+// 포트차단이 걸려있을경우 해제 및 특정포트 허가가 필요하다면 포트포워딩도 필요한 상황임
+function getCurrentTime() {
+  return new Date().toISOString(); // ISO 형식의 현재 시간 반환
+}
+// 새 필드: /time-monitor
+// 1.2.3.4:30873 서버로 현재 시간을 전송
+app.get('/time-monitor', (req, res) => {
+  const currentTime = getCurrentTime();
+  console.log('현재 시간:', currentTime);
+
+  const agent = new https.Agent({
+    rejectUnauthorized: false,
+  });
+
+  axios.post('http://1.2.3.4:30873/time-data', { time: currentTime }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    httpsAgent: agent,
+  })
+  .then(response => {
+    console.log('현재 시간 전송 성공:', response.data);
+    res.status(200).send('현재 시간 전송 완료');
+  })
+  .catch(err => {
+    console.error('현재 시간 전송 중 오류 발생:', err);
+    res.status(500).send('현재 시간 전송 실패');
+  });
+});
+
+/*
+(base) server@test:~glory/glory/glory$ sudo ufw allow 30873/tcp
+Rule added
+Rule added (v6)
+(base) server@test:~glory/glory/glory$ node main.js 
+시간 모니터링 서버가 30873 포트에서 실행 중입니다.
+요청 수신: { time: '2024-10-07T05:19:20.955Z' }
+수신한 시간 데이터: { time: '2024-10-07T05:19:20.955Z' }
+^C
+(base) server@test:~glory/glory/glory$ 
+*/
+//241007_1423_glory : 위에 구문은 받는쪽에 대해서 초기에 방화벽 허가가 필요한 부분에 대한 내용이며, 아래는 받는쪽 코드이다. http로 했으니 참고할 것 // cors가 과연 필수적일까? 그리고 공유기 포트포워딩도 필수적일까? 이것은 아직도 의문임 더 좋은 방법 있는지 검토할 것
+//241007_1724_glory : 아래는 받는쪽 코드이니 참고할 것
+/*
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = 30873;
+
+const cors = require('cors');
+app.use(cors());  // 모든 도메인에서의 요청 허용
+
+app.use(bodyParser.json());
+
+// 현재 시간을 받는 필드 추가
+app.post('/time-data', (req, res) => {
+  console.log('요청 수신:', req.body);  // 로그 추가
+  const timeData = req.body;
+  console.log('수신한 시간 데이터:', timeData);
+
+  res.status(200).send('시간 데이터 수신 완료');
+});
+
+// 서버 실행
+app.listen(PORT, () => {
+console.log(`시간 모니터링 서버가 ${PORT} 포트에서 실행 중입니다.`);
+});
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 240928_2314_glory : 새로운 필드 추가: /processed-image
 // public/sample.jpg 파일을 이미지 처리한 후 localhost:10874로 전송하는 필드
 app.get('/processed-image', (req, res) => {

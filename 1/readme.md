@@ -1,6 +1,7 @@
 # 240928_2153 : 폴더구조 업데이트
 
 ## 폴더구조 
+```
 1
 ├── (node_modules)
 ├── public/
@@ -15,6 +16,7 @@
 ├── received_data.log
 ├── server.cert
 └── server.key
+```
 
 # 240928_2152 : 초기 세팅 완료
 - 초기 세팅 : npm install express sharp axios
