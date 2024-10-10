@@ -7,9 +7,92 @@ import ssl
 import asyncio
 import os
 
+
+#241009_1535_pointcloud 생성 및 전송하기 위해서 미리 세팅할 것들
+import socket
+import json
+import numpy as np
+import time
+import httpx  # FastAPI에서 HTTP 요청을 위해 httpx 라이브러리 사용
+
 # FastAPI 인스턴스를 생성
 # FastAPI는 웹 API를 빠르고 쉽게 개발할 수 있게 해주는 Python 웹 프레임워크
 app = FastAPI()
+
+
+
+
+
+
+
+
+
+
+
+
+
+#241009_1708_glory : https://localhost:20873/pointscloud
+#23만개의 랜덤한 포인트 클라우드 생성하는 함수
+#241009_1805_glory : 당연한 말인데 포인트 클라우드 수가 적으면 훨씬더 빠르게 보낼 수 있는 것 같다. 
+def generate_random_point_cloud(num_points=1000): #241009_1754_glory : 230000에서 1000으로 변경 계산을 쉽게하기 위해서 
+#def generate_random_point_cloud(num_points=230000): #241009_1754_glory : 1000에서 230000으로 변경 계산을 쉽게하기 위해서 
+    points = np.random.uniform(low=-1000.0, high=1000.0, size=(num_points, 3))
+    #points = np.random.uniform(low=-1000.0, high=1000.0, size=(num_points, 3)) #241009_1743_glory : 원래 코드인데 가볍게 하기 위해서 수정함
+    return points
+
+# 포인트 클라우드를 Node.js 1번 서버로 전송하는 함수 (HTTP POST 요청)
+async def send_point_cloud_data():
+    while True:
+        # 포인트 클라우드 생성 구문
+        point_cloud = generate_random_point_cloud()
+        
+        # 포인트 클라우드를 JSON으로 변환
+        data = {
+            "type": "random_point_cloud",
+            "point_count": len(point_cloud),
+            "points": point_cloud.tolist()
+        }
+
+        try:
+            # Node.js 서버로 POST 요청 보내기 (localhost:10873)
+            async with httpx.AsyncClient(verify=False) as client:  # verify 대신 ssl 검증 비활성화 -> 추후 내용 검증 필요
+                response = await client.post('https://localhost:10873/pointscloud', json=data)
+                print(f"Sent point cloud: {response.status_code}, Response: {response.text}")
+        except Exception as e:
+            print(f"Error sending point cloud data: {str(e)}")
+
+        # 1초 대기 후 다시 전송 = 1
+        # 241009_1742_glory : 당연한 이야기인데, asyncio.sleep(0.1) 주기와 points = np.random.uniform(low=-100.0, high=100.0, size=(num_points, 3))를 숫자를 조정하면 더 빨리 보낼 수 있음
+        await asyncio.sleep(0.1)
+
+
+# 클라이언트에서 포인트 클라우드 요청을 처리하는 엔드포인트 (GET 요청 허용)
+@app.get("/pointscloud")
+async def get_pointscloud():
+    try:
+        # 포인트 클라우드 데이터를 Node.js 서버로 전송하는 비동기 작업 시작
+        asyncio.create_task(send_point_cloud_data())
+        return JSONResponse(content={"message": "Point Cloud Server started and sending data"}, status_code=200)
+    
+    except Exception as e:
+        return JSONResponse(content={"message": f"Error starting server: {str(e)}"}, status_code=500)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 이미지 처리 함수 정의
 def process_image(content, folder_name, cam_seq, user_id, user_seq):

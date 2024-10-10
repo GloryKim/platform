@@ -8,6 +8,7 @@ received_data.log
 5/__pycache__/
 __pycache__/
 myenv/
+point_cloud_data.log/
 
 # compiled output
 /dist

@@ -6,16 +6,18 @@
 ├── (node_modules)
 ├── public/
 │   ├── index.html
+│   ├── index2.html
 │   ├── sample.jpg
 │   └── sample.mp4
 ├── uploads/
 ├── index.js
 ├── package-lock.json
 ├── package.json
+├── (point_cloud_data.log)
 ├── readme.md
-├── received_data.log
-├── server.cert
-└── server.key
+├── (received_data.log)
+├── (server.cert)
+└── (server.key)
 ```
 
 # 240928_2152 : 초기 세팅 완료

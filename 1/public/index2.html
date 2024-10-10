@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point Cloud Visualization (index2)</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="color: white; position: absolute; top: 10px; left: 10px; z-index: 10;">Point Cloud Viewer (index2.html)</h2>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // 씬, 카메라, 렌더러 create
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000); // Camera far distance increased .. 카메라 거리 및 각도 설정
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 카메라 위치를 적절히 배치
+        camera.position.set(0, 0, 2000);
+
+        let pointCloud = null;
+
+        //point cloud geometry 생성
+        function createPointCloud(pointData) {
+            // Remove the previous point cloud from the scene
+            if (pointCloud) {
+                scene.remove(pointCloud);
+                pointCloud.geometry.dispose(); // 메모리 누수 방지
+                pointCloud.material.dispose(); // 메모리 누수 방지
+            }
+
+            // 샘플링: 23만 개의 포인트 중 일부만 사용하여 렌더링 성능을 최적화
+            //const sampledPoints = pointData.slice(0, Math.min(10000, pointData.length)); // 241009_1754_glory : 렌더링을 걸때에 최대 10,000개의 포인트만 사용해서 랜더링 속도를 줄이도록 하였음
+            const sampledPoints = pointData.slice(0, Math.min(230000, pointData.length)); // 241009_1803_glory :렌더링을 걸때에 최대 230,000개의 포인트만 사용
+
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+
+            // Add points to the geometry
+            sampledPoints.forEach(point => {
+                vertices.push(point[0], point[1], point[2]);
+            });
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            const material = new THREE.PointsMaterial({ color: 0x00ff00, size: 3, sizeAttenuation: true });
+            pointCloud = new THREE.Points(geometry, material);
+            scene.add(pointCloud);
+
+            renderer.render(scene, camera);  // 데이터 수신 시 렌더링 실행
+        }
+
+        // Fetch point cloud data from server and update scene
+        async function fetchAndUpdatePointCloud() {
+            try {
+                const response = await fetch('https://localhost:10873/api/pointscloud', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                createPointCloud(data.points);  // 포인트 클라우드를 씬에 추가
+                console.log(`Updated point cloud with ${data.point_count} points`);
+            } catch (error) {
+                console.error('Error fetching point cloud data:', error);
+            }
+        }
+
+        // 렌더링 주기를 데이터 수신 시에만 실행
+        let isUpdating = false;
+
+        function animate() {
+            if (!isUpdating) {
+                renderer.render(scene, camera);
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 데이터를 수신할 때만 렌더링 업데이트
+        function updateScene() {
+            isUpdating = true;
+            fetchAndUpdatePointCloud().then(() => {
+                isUpdating = false;
+            });
+        }
+
+        // 0.1초마다 서버로부터 포인트 클라우드 데이터를 가져와서 씬을 갱신
+        setInterval(updateScene, 100);  // 필요시 간격을 줄이거나 늘릴 수 있음 100 = 0.1초
+
+        // Adjust the renderer size on window resize
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>

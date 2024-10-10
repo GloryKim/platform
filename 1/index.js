@@ -5,7 +5,7 @@ const socketIo = require('socket.io');
 const bodyParser = require('body-parser'); //240922_0220_glory : POST 요청의 JSON 데이터를 파싱하기 위한 body-parser 사용
 const sharp = require('sharp'); // 240928_2314_glory : 이미지 영상처리를 위한 간이 라이브러리
 const axios = require('axios'); // 240928_2329_glory : HTTP 요청을 위한 axios 추가
-
+const path = require('path'); // path 모듈을 추가하여 파일 경로 처리
 
 
 
@@ -18,6 +18,18 @@ const options = {
 const app = express();
 const server = https.createServer(options, app);
 const io = socketIo(server);
+
+
+//241009_1558_glory : 포인트클라우드 수신을 위한 내용 미리 반영
+const net = require('net');
+const { Buffer } = require('buffer');
+
+
+// 서버에 저장된 포인트 클라우드 데이터를 저장할 변수
+let latestPointCloudData = null;
+
+
+
 
 // 'public' 폴더에 정적 파일 제공
 app.use(express.static('public'));
@@ -40,6 +52,68 @@ PayloadTooLargeError: request entity too large
 mac@macui-MacBookPro 1 % 
 */
 app.use(bodyParser.json({ limit: '100mb' })); // 240922_0141_glory : 기본 크기 제한을 100MB로 설정
+
+
+
+
+
+
+
+
+
+
+
+
+
+//https://localhost:10873/pointscloud
+// 포인트 클라우드 데이터를 받아서 저장
+app.post('/pointscloud', (req, res) => {
+  const pointCloudData = req.body; // 요청 본문에서 JSON 데이터 추출
+  console.log(`Received point cloud with ${pointCloudData.point_count} points`);
+
+  // 받은 데이터를 변수에 저장하여 이후 GET 요청에 사용할 수 있도록 함
+  latestPointCloudData = pointCloudData;
+
+  // 로그 파일로 데이터 저장
+  fs.appendFile('point_cloud_data.log', JSON.stringify(pointCloudData) + '\n', (err) => {
+    if (err) {
+      console.error('Error saving point cloud data to log file:', err);
+      return res.status(500).send('Error saving point cloud data');
+    }
+
+    // 성공적으로 파일에 저장되면 응답 전송
+    res.status(200).send('Point cloud data received and saved successfully');
+  });
+});
+
+// 포인트 클라우드 데이터를 반환하는 API
+app.get('/api/pointscloud', (req, res) => {
+  if (latestPointCloudData) {
+    // 실시간으로 받은 데이터를 클라이언트에 반환
+    res.json(latestPointCloudData);
+  } else {
+    // 데이터가 없을 경우 에러 응답
+    res.status(404).send({ error: 'No point cloud data available' });
+  }
+});
+
+// 정적 파일로 index2.html 제공
+app.get('/pointscloud', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index2.html'));
+});
+
+// favicon.ico 요청 무시 (404 방지)
+app.get('/favicon.ico', (req, res) => res.status(204));
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -275,6 +349,9 @@ function logDataToFile(data) {
     }
   });
 }
+
+
+
 
 
 
