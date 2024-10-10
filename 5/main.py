@@ -21,22 +21,12 @@ app = FastAPI()
 
 
 
-
-
-
-
-
-
-
-
-
-
 #241009_1708_glory : https://localhost:20873/pointscloud
 #23만개의 랜덤한 포인트 클라우드 생성하는 함수
 #241009_1805_glory : 당연한 말인데 포인트 클라우드 수가 적으면 훨씬더 빠르게 보낼 수 있는 것 같다. 
-def generate_random_point_cloud(num_points=1000): #241009_1754_glory : 230000에서 1000으로 변경 계산을 쉽게하기 위해서 
+def generate_random_point_cloud(num_points=23000): #241009_1754_glory : 230000에서 1000으로 변경 계산을 쉽게하기 위해서 
 #def generate_random_point_cloud(num_points=230000): #241009_1754_glory : 1000에서 230000으로 변경 계산을 쉽게하기 위해서 
-    points = np.random.uniform(low=-1000.0, high=1000.0, size=(num_points, 3))
+    points = np.random.uniform(low=-500.0, high=500.0, size=(num_points, 3))
     #points = np.random.uniform(low=-1000.0, high=1000.0, size=(num_points, 3)) #241009_1743_glory : 원래 코드인데 가볍게 하기 위해서 수정함
     return points
 
@@ -76,21 +66,6 @@ async def get_pointscloud():
     
     except Exception as e:
         return JSONResponse(content={"message": f"Error starting server: {str(e)}"}, status_code=500)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

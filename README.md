@@ -31,3 +31,6 @@
 3. 실시간 통신: WebSocket, SSE, SignalR, socketIO
 4. 고성능 데이터 스트리밍: gRPC, Kafka, MQTT
 5. 메시징 시스템: AMQP, Redis Pub/Sub
+6. 전달이 잘 안될때 예외처리
+7. 여러개 요청 동시 처리
+8. json 정보에 ""가 들어가면 예외처리

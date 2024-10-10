@@ -7,8 +7,6 @@ const sharp = require('sharp'); // 240928_2314_glory : 이미지 영상처리를
 const axios = require('axios'); // 240928_2329_glory : HTTP 요청을 위한 axios 추가
 const path = require('path'); // path 모듈을 추가하여 파일 경로 처리
 
-
-
 // SSL 인증서 로드
 const options = {
   key: fs.readFileSync('server.key'),
@@ -19,17 +17,12 @@ const app = express();
 const server = https.createServer(options, app);
 const io = socketIo(server);
 
-
 //241009_1558_glory : 포인트클라우드 수신을 위한 내용 미리 반영
 const net = require('net');
 const { Buffer } = require('buffer');
 
-
 // 서버에 저장된 포인트 클라우드 데이터를 저장할 변수
 let latestPointCloudData = null;
-
-
-
 
 // 'public' 폴더에 정적 파일 제공
 app.use(express.static('public'));
@@ -52,16 +45,6 @@ PayloadTooLargeError: request entity too large
 mac@macui-MacBookPro 1 % 
 */
 app.use(bodyParser.json({ limit: '100mb' })); // 240922_0141_glory : 기본 크기 제한을 100MB로 설정
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -104,29 +87,6 @@ app.get('/pointscloud', (req, res) => {
 
 // favicon.ico 요청 무시 (404 방지)
 app.get('/favicon.ico', (req, res) => res.status(204));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -204,17 +164,6 @@ console.log(`시간 모니터링 서버가 ${PORT} 포트에서 실행 중입니
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // 240928_2314_glory : 새로운 필드 추가: /processed-image
 // public/sample.jpg 파일을 이미지 처리한 후 localhost:10874로 전송하는 필드
 app.get('/processed-image', (req, res) => {
@@ -253,16 +202,6 @@ app.get('/processed-image', (req, res) => {
       res.status(500).send('이미지 처리 오류');
     });
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -308,20 +247,6 @@ app.get('/processed-image_fastapi', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //240921_2302_glory : go+sendRequest를 무차별로 받을때 
 app.post('/api/test', (req, res) => { //240922_0135_glory : go쪽에서 post로 보내고 있으니 get에서 post로 수정함
   //console.log('go서버에서 연락이 왔어요.');
@@ -337,8 +262,6 @@ app.post('/api/test', (req, res) => { //240922_0135_glory : go쪽에서 post로 
 
 
 
-
-
 // 240922_0128_glory : go 서버로 받아진 대용량 로그 파일에 데이터를 저장하는 함수
 function logDataToFile(data) {
   fs.appendFile('received_data.log', JSON.stringify(data) + '\n', (err) => {
@@ -349,13 +272,6 @@ function logDataToFile(data) {
     }
   });
 }
-
-
-
-
-
-
-
 
 
 
@@ -376,15 +292,6 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('ice-candidate', candidate);
   });
 });
-
-
-
-
-
-
-
-
-
 
 
 

@@ -16,6 +16,7 @@ point_cloud_data.log/
 /build
 
 # Logs
+*.cert
 logs
 *.log
 npm-debug.log*
