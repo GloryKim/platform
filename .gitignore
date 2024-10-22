@@ -1,5 +1,6 @@
 node_modules/
 server.key
+server.csr
 server.cert
 captures/
 target/

@@ -47,6 +47,30 @@ mac@macui-MacBookPro 1 %
 app.use(bodyParser.json({ limit: '100mb' })); // 240922_0141_glory : 기본 크기 제한을 100MB로 설정
 
 
+// 241022_1107_glory : 실행시킬때 node index.js하면 자동으로 1초마단 에러 메시지가 나올것임
+// 241022_1108_glory : /glory/4/src/main.ts 해당 경로에 있는 값을 받는 구문
+// 신호를 수신하는 엔드포인트
+app.post('/signal', (req, res) => {
+  console.log('Signal received:', req.body);
+  res.status(200).send('Signal received');
+});
+
+// 일정 시간 동안 신호가 오지 않으면 에러 발생
+let lastSignalTime = Date.now();
+
+function checkForErrors() {
+  const now = Date.now();
+  const timeElapsed = now - lastSignalTime;
+  
+  if (timeElapsed > 1000) {  // 1초 동안 신호가 없을 경우 에러 발생
+    console.error('Error: Signal not received for 1 seconds');
+    lastSignalTime = now;  // 에러 발생 후 타이머 초기화
+  }
+}
+
+setInterval(checkForErrors, 500);  // 0.5초마다 신호 체크
+
+
 
 //https://localhost:10873/pointscloud
 // 포인트 클라우드 데이터를 받아서 저장
