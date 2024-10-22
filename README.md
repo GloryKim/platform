@@ -22,6 +22,7 @@
     - 240928_2343 : main.ts, app.controller.ts, image.service.ts, image.controller.ts, app.module.ts 4개 수정
     - 240928_2344 : nodejs에게 이미지 전달 받는 프로젝트 구현완료 axios 활용
     - 241022_1111 : nodejs에게 비동기로 일정확률로 신호를 보내는 기능 구현
+    - 241022_1454 : type 정하는 구문 추구 완료
 
 ## 5. FastAPI(u.python)
     - 241005_1313 : fastapi 서버 구축 후 nodejs서버와 이미지 데이터 주고받을때 이미지 처리가 완료되고나서 응답을 위한 run_in_executor 교신 기능 추가(실행 방법은 readme.md 필수)
