@@ -108,7 +108,7 @@ fn main() {
         println!("1. Create new block");
         println!("2. View blockchain");
         println!("3. Send blockchain");
-        println!("4. Switch to web service");
+        println!("4. Web service control");
         println!("Choose an option:");
 
         let mut choice = String::new();
@@ -143,8 +143,7 @@ fn main() {
                 broadcast_chain(Arc::clone(&blockchain), peer.trim());
             }
             "4" => {
-                println!("Switching to web service...");
-                glory::run_web_service();//241029_2350_glory : glory.rs에 있는 run_web_service를 구동
+                glory::control_web_service();//241029_2350_glory : glory.rs에 있는 run_web_service를 구동
             }
             _ => {
                 println!("Invalid selection. Please try again.");
