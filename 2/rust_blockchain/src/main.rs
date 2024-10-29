@@ -1,3 +1,5 @@
+mod glory; //241029_2350_glory : glory.rs를 상속받기 위한 구문
+
 use chrono::prelude::*;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -5,6 +7,7 @@ use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::sync::{Arc, Mutex};
 use std::thread;
+use std::io::stdin;
 
 // 블록 구조체 정의
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -54,18 +57,18 @@ fn handle_client(stream: TcpStream, blockchain: Arc<Mutex<Vec<Block>>>) {
                 let mut chain = blockchain.lock().unwrap();
                 if received_chain.len() > chain.len() {
                     *chain = received_chain;
-                    println!("블록체인이 업데이트되었습니다.");
+                    println!("Blockchain updated.");
                 }
             }
         }
-        Err(e) => println!("클라이언트 처리 중 오류 발생: {}", e),
+        Err(e) => println!("Error handling client: {}", e),
     }
 }
 
 // 서버를 시작하는 함수
 fn start_server(blockchain: Arc<Mutex<Vec<Block>>>) {
-    let listener = TcpListener::bind("0.0.0.0:7878").expect("포트 바인딩 실패");
-    println!("서버가 7878 포트에서 시작되었습니다.");
+    let listener = TcpListener::bind("0.0.0.0:7878").expect("Failed to bind port");
+    println!("Server started on port 7878.");
 
     for stream in listener.incoming() {
         match stream {
@@ -75,7 +78,7 @@ fn start_server(blockchain: Arc<Mutex<Vec<Block>>>) {
                     handle_client(stream, chain);
                 });
             }
-            Err(e) => println!("연결 실패: {}", e),
+            Err(e) => println!("Connection failed: {}", e),
         }
     }
 }
@@ -86,9 +89,9 @@ fn broadcast_chain(blockchain: Arc<Mutex<Vec<Block>>>, peer: &str) {
         let chain = blockchain.lock().unwrap();
         let msg = serde_json::to_string(&*chain).unwrap();
         stream.write_all(msg.as_bytes()).unwrap();
-        println!("{}로 블록체인을 전송했습니다.", peer);
+        println!("Blockchain sent to {}.", peer);
     } else {
-        println!("{}에 연결할 수 없습니다.", peer);
+        println!("Could not connect to {}.", peer);
     }
 }
 
@@ -102,19 +105,20 @@ fn main() {
     });
 
     loop {
-        println!("1. 새로운 블록 생성");
-        println!("2. 블록체인 보기");
-        println!("3. 블록체인 전송");
-        println!("선택하세요: ");
+        println!("1. Create new block");
+        println!("2. View blockchain");
+        println!("3. Send blockchain");
+        println!("4. Switch to web service");
+        println!("Choose an option:");
 
         let mut choice = String::new();
-        std::io::stdin().read_line(&mut choice).unwrap();
+        stdin().read_line(&mut choice).unwrap();
 
         match choice.trim() {
             "1" => {
-                println!("데이터를 입력하세요: ");
+                println!("Enter data:");
                 let mut data = String::new();
-                std::io::stdin().read_line(&mut data).unwrap();
+                stdin().read_line(&mut data).unwrap();
 
                 let mut chain = blockchain.lock().unwrap();
                 let prev_block = chain.last().unwrap();
@@ -124,7 +128,7 @@ fn main() {
                     prev_block.hash.clone(),
                 );
                 chain.push(new_block);
-                println!("새로운 블록이 추가되었습니다.");
+                println!("New block added.");
             }
             "2" => {
                 let chain = blockchain.lock().unwrap();
@@ -133,13 +137,17 @@ fn main() {
                 }
             }
             "3" => {
-                println!("연결할 노드의 주소를 입력하세요 (예: 127.0.0.1:7878): ");
+                println!("Enter the address of the node to connect (e.g., 127.0.0.1:7878):");
                 let mut peer = String::new();
-                std::io::stdin().read_line(&mut peer).unwrap();
+                stdin().read_line(&mut peer).unwrap();
                 broadcast_chain(Arc::clone(&blockchain), peer.trim());
             }
+            "4" => {
+                println!("Switching to web service...");
+                glory::run_web_service();//241029_2350_glory : glory.rs에 있는 run_web_service를 구동
+            }
             _ => {
-                println!("잘못된 선택입니다.");
+                println!("Invalid selection. Please try again.");
             }
         }
     }

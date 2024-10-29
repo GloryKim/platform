@@ -11,8 +11,9 @@
     - 241022_1138 : express 5.0 전환
 
 
-## 2. Blockchain(u.rust)
+## 2. Blockchain+Platform(u.rust)
     - 240921_2248 : 작업 증명, 트랜잭션, 디지털 서명 등 기능이 미포함
+    - 241029_2354 : 
 
 ## 3. SendRequest(u.golang)
     - 240921_2303 : node 서버에 무차별로 연락을 보내는 코드
