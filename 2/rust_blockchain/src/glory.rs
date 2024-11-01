@@ -9,6 +9,7 @@ use lazy_static::lazy_static;
 use std::io::stdin;
 // [신규] Duration 추가: 스레드 sleep 및 타임아웃을 위한 시간 관리 기능
 use std::time::Duration;
+use colored::*;
 
 // [변경없음] RUNNING 전역 변수 정의
 lazy_static! {
@@ -22,11 +23,11 @@ pub fn control_web_service() {
     let mut server_thread = None;
 
     loop {
-        println!("1. Start Web Server");
-        println!("2. Stop Web Server");
-        // [신규] 프로그램 종료 옵션 추가
-        println!("3. Exit");
-        println!("Choose an option:");
+        println!("\n{}", "=== Web Server Control Panel ===".bright_cyan().bold());
+        println!("{} {}", "1.".bright_yellow(), "Start Web Server".bright_green());
+        println!("{} {}", "2.".bright_yellow(), "Stop Web Server".bright_red());
+        println!("{} {}", "3.".bright_yellow(), "Exit".bright_white());
+        println!("{}", "Choose an option:".bright_cyan());
 
         let mut choice = String::new();
         stdin().read_line(&mut choice).unwrap();
@@ -38,7 +39,7 @@ pub fn control_web_service() {
                     // [신규] 서버 스레드 시작 시 핸들을 저장
                     server_thread = Some(start_web_service(tx.clone()));
                 } else {
-                    println!("Web service is already running.");
+                    println!("{}", "Web service is already running.".yellow().bold());
                 }
             }
             // [변경] 2번 또는 다른 키 입력 시에도 서버 종료 처리
@@ -50,9 +51,9 @@ pub fn control_web_service() {
                     let _ = rx.recv_timeout(Duration::from_secs(2));
                     // [신규] 스레드가 완전히 종료될 때까지 대기
                     thread.join().unwrap();
-                    println!("Web server stopped and port released.");
+                    println!("{}", "Web server stopped and port released.".bright_red().bold());
                 } else {
-                    println!("Web service is not running.");
+                    println!("{}", "Web service is not running.".yellow());
                 }
             }
             // [신규] 프로그램 종료 옵션 처리
@@ -62,7 +63,7 @@ pub fn control_web_service() {
                     let _ = rx.recv_timeout(Duration::from_secs(2));
                     thread.join().unwrap();
                 }
-                println!("Exiting program...");
+                println!("{}", "Exiting program...".bright_magenta().bold());
                 break;
             }
         }
@@ -79,11 +80,13 @@ fn start_web_service(tx: mpsc::Sender<()>) -> thread::JoinHandle<()> {
         // [변경] TcpListener 생성을 실패할 수 있는 상황 처리 추가
         let listener = match TcpListener::bind("0.0.0.0:8080") {
             Ok(l) => {
-                println!("Web service started on port 8080.");
+                println!("\n{}", "╔════════════════════════════════════════╗".bright_green());
+                println!("{}", "║      Web Service Started on Port 8080    ║".bright_green().bold());
+                println!("{}", "╚════════════════════════════════════════╝".bright_green());
                 l
             }
             Err(e) => {
-                println!("Failed to bind to port 8080: {}", e);
+                println!("{} {}", "Failed to bind to port 8080:".bright_red().bold(), e);
                 running.store(false, Ordering::SeqCst);
                 // [신규] 바인딩 실패 시 종료 신호 전송
                 let _ = tx.send(());
@@ -104,7 +107,7 @@ fn start_web_service(tx: mpsc::Sender<()>) -> thread::JoinHandle<()> {
                         if let Ok(_) = stream.read(&mut buffer) {
                             let response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nHello from the web service!";
                             let _ = stream.write_all(response.as_bytes());
-                            println!("Responded to client request.");
+                            println!("{}", "✓ Responded to client request".bright_green().italic());
                         }
                     });
                 }
@@ -115,14 +118,14 @@ fn start_web_service(tx: mpsc::Sender<()>) -> thread::JoinHandle<()> {
                     continue;
                 }
                 Err(e) => {
-                    println!("Failed to accept client connection: {}", e);
+                    println!("{} {}", "Failed to accept client connection:".bright_red(), e);
                 }
             }
         }
 
         // [신규] 서버 종료 시 메인 스레드에 알림
         let _ = tx.send(());
-        println!("Server thread terminated.");
+        println!("{}", "Server thread terminated.".bright_yellow().bold());
     })
 }
 
@@ -130,6 +133,6 @@ fn start_web_service(tx: mpsc::Sender<()>) -> thread::JoinHandle<()> {
 fn stop_web_service() {
     if RUNNING.load(Ordering::SeqCst) {
         RUNNING.store(false, Ordering::SeqCst);
-        println!("Stopping the web service...");
+        println!("\n{}", "⚠ Stopping the web service...".bright_red().bold());
     }
 }

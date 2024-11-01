@@ -16,6 +16,7 @@
     - 241029_2354 : 신규기능 추가, 웹서버 작동 코드 구현 완료 (4번 기능)
     - 241030_0000 : glory.rs에 옵션 기능 추가, 단 중복 1->2->2->1 입력 시 thread '<unnamed>' panicked at src/glory.rs:46:58: Failed to bind to port 8080: Os { code: 48, kind: AddrInUse, message: "Address already in use" } note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace 오류 발생
     - 241030_0019 : glory.rs에 웹서버 온오프 기능 구현 완료 (몽키테스트 완료함)
+    - 241101_1004 : glory.rs에 터미널 꾸미는 기능 추가 colored = "2.0"
 
 ## 3. SendRequest(u.golang)
     - 240921_2303 : node 서버에 무차별로 연락을 보내는 코드
@@ -41,3 +42,5 @@
 5. Node-메시징 시스템: AMQP, Redis Pub/Sub
 6. Node-여러개 요청 동시 처리
 7. Node-json 정보에 ""가 들어가면 예외처리
+8. Go-Rust와 터미널 통신 기능 구현
+9. Rust-Go와 터미널 통신 기능 구현
