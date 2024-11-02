@@ -43,25 +43,6 @@ PayloadTooLargeError: request entity too large
     at next (/Users/mac/glory/1/node_modules/express/lib/router/index.js:280:10)
     at serveStatic (/Users/mac/glory/1/node_modules/serve-static/index.js:75:16)
 mac@macui-MacBookPro 1 % 
-
-
-과제 관련 내용을 많이하고 과제 공유 진행
-
-서류 필수
-
-오늘은 XR 특허 작성하는 날
-
-
-
-
-
-
-
-
-
-
-
-
 */
 app.use(bodyParser.json({ limit: '100mb' })); // 240922_0141_glory : 기본 크기 제한을 100MB로 설정
 
