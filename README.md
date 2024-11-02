@@ -21,6 +21,7 @@
 ## 3. SendRequest(u.golang)
     - 240921_2303 : node 서버에 무차별로 연락을 보내는 코드
     - 240921_0139 : node로 45만개의 xyz 배열을 1초에 한번씩 보내는 기능 구현 반영 (post)
+    - 241102_1216 : 터미널 모드 기능 추가, 색상정보 추가, 기존기능과 이원화로 두고 현재는 단순한 print만 나오도록 세팅을 했는데, 추후에 기능 부여 예정
 
 ## 4. Nest.JS(u.typescript)
     - 240928_2343 : main.ts, app.controller.ts, image.service.ts, image.controller.ts, app.module.ts 4개 수정
