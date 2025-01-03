@@ -23,7 +23,7 @@
     - 240921_0139 : node로 45만개의 xyz 배열을 1초에 한번씩 보내는 기능 구현 반영 (post)
     - 241102_1216 : 터미널 모드 기능 추가, 색상정보 추가, 기존기능과 이원화로 두고 현재는 단순한 print만 나오도록 세팅을 했는데, 추후에 기능 부여 예정
 
-## 4. Nest.JS(u.typescript)
+## 4. Nest.JS+Next.JS(u.typescript)
     - 240928_2343 : main.ts, app.controller.ts, image.service.ts, image.controller.ts, app.module.ts 4개 수정
     - 240928_2344 : nodejs에게 이미지 전달 받는 프로젝트 구현완료 axios 활용
     - 241022_1111 : nodejs에게 비동기로 일정확률로 신호를 보내는 기능 구현
@@ -33,6 +33,9 @@
     - 241005_1313 : fastapi 서버 구축 후 nodejs서버와 이미지 데이터 주고받을때 이미지 처리가 완료되고나서 응답을 위한 run_in_executor 교신 기능 추가(실행 방법은 readme.md 필수)
     - 241010_0911 : fastapi 서버에 포인트클라우드 데이터 랜덤 생성 후 nodejs 서버(https://localhost:10873/pointscloud)에 보내는 구문 추가 (0.5초 주기로 비동기로 쏘기)
 
+## 6. iOS(u.swift)
+    - 250103_1504 : swift 폴더 생성 및 폴더명 정리
+    
 ---
 
 ## Next Step
