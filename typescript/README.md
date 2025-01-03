@@ -15,3 +15,5 @@ for Creating 3D Web using React and Three.js
 - 241219_1143_glory : 웹상에서 3D 모델 렌더링 및 간단한 조작 기능 부여 + Nextjs + Threejs
 
 - 250103_1532 : typescript프로젝트 (Nestjs + Nextjs) 병합
+
+- 250103_1553 : Readme.md 정리
