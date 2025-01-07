@@ -1,0 +1,20 @@
+# Start with the golang image
+FROM golang:1.20
+
+# Set the Current Working Directory inside the container
+WORKDIR /app
+
+# Copy go.mod and go.sum files
+COPY go.mod go.sum ./
+
+# Copy vendor directory
+COPY vendor/ ./vendor/
+
+# Copy the rest of the files
+COPY . .
+
+# Build the Go app with vendor directory
+RUN go build -mod=vendor -o pub pub.go
+
+# Command to run the executable
+CMD ["./pub"]

@@ -1,8 +1,20 @@
-# go+sendRequest
+# golang
+
+- 240514_2017_glory : rosbag play -l all.bag 파일을 실행시킬 때 발생하는 토픽들을 웹 통신으로 송수신 하는 코드 (대용량 라이다도 가능)
+
+- 240516_0913_glory : docker compose로 실행하고 닫고 하는 방법
+
+- 240516_1624_glory : docker 컨테이너 내 열린 go webserver에서 터미널로 텍스트 입력할때 local에 있는 go 웹서버 cmd 창에도 출력하기
+
+- 240516_1634_glory : docker 프로젝트명 수정 및 양방향 기능도 구현
+
+- 240516_1807_glory : 도커 내부끼리 go로 웹서버 열어서 한쪽에서는 topic들을 publish해주고 반대면에서는 subscribe해서 log로 저장하는 작업 수행
 
 - 240921_2257_glory : 메인서버에 계속해서 트레픽을 부과할 client 서버 실행명령어 -> **mac@macui-MacBookPro 3 % go run main.go**
 
 - 241102_1216_glory : 터미널 모드 기능 추가, 색상정보 추가, 기존기능과 이원화로 두고 현재는 단순한 print만 나오도록 세팅을 했는데, 추후에 기능 부여 예정
+
+- 250107_1803_glory : 폴더 병합
 
 ## 관련용어
 

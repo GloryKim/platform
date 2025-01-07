@@ -1,0 +1,21 @@
+version: '3'
+services:
+  pub:
+    build:
+      context: .
+      dockerfile: Dockerfile.pub
+    networks:
+      - app-network
+
+  sub:
+    build:
+      context: .
+      dockerfile: Dockerfile.sub
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

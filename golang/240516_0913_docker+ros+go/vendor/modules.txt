@@ -1,0 +1,29 @@
+# github.com/aler9/goroslib v1.2.0
+## explicit; go 1.18
+github.com/aler9/goroslib
+github.com/aler9/goroslib/pkg/actionproc
+github.com/aler9/goroslib/pkg/apimaster
+github.com/aler9/goroslib/pkg/apiparam
+github.com/aler9/goroslib/pkg/apislave
+github.com/aler9/goroslib/pkg/msg
+github.com/aler9/goroslib/pkg/msgproc
+github.com/aler9/goroslib/pkg/msgs/actionlib_msgs
+github.com/aler9/goroslib/pkg/msgs/geometry_msgs
+github.com/aler9/goroslib/pkg/msgs/rosgraph_msgs
+github.com/aler9/goroslib/pkg/msgs/sensor_msgs
+github.com/aler9/goroslib/pkg/msgs/std_msgs
+github.com/aler9/goroslib/pkg/protocommon
+github.com/aler9/goroslib/pkg/prototcp
+github.com/aler9/goroslib/pkg/protoudp
+github.com/aler9/goroslib/pkg/serviceproc
+github.com/aler9/goroslib/pkg/xmlrpc
+# github.com/gookit/color v1.5.2
+## explicit; go 1.16
+github.com/gookit/color
+# github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778
+## explicit; go 1.15
+github.com/xo/terminfo
+# golang.org/x/sys v0.5.0
+## explicit; go 1.17
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/windows
