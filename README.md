@@ -7,7 +7,7 @@
 ## 📝 Planned Updates  
 We’re excited to share our roadmap for upcoming updates on GitHub! Expect a variety of guides and examples focusing on the latest technologies. Here’s what’s coming:  
 
-### 0️⃣ **All About Go (Golang)**  
+### 0️⃣ **About Go (Golang)**  
 We’ll explore the world of Go step by step:  
 - 🛠 How to build efficient HTTP and WebSocket servers.  
 - 📚 A deep dive into essential data structures.  
