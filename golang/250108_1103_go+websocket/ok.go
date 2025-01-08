@@ -4,7 +4,7 @@ Go 서버 실행방법
 		go mod init websocket-server
 		go get github.com/gorilla/websocket
 	Go 서버 코드를 실행:
-		go run main.go
+		go run ok.go
 */
 
 package main
