@@ -4,33 +4,56 @@
 
 ---
 
-## 📝 Planned Updates  
-We’re excited to share our roadmap for upcoming updates on GitHub! Expect a variety of guides and examples focusing on the latest technologies. Here’s what’s coming:  
+## 📝 Planned Updates
 
-### 0️⃣ **About Go (Golang)**  
-We’ll explore the world of Go step by step:  
-- 🛠 How to build efficient HTTP and WebSocket servers.  
-- 📚 A deep dive into essential data structures.  
-- ⚡ Tips for mastering Go’s elegant syntax and scalability.  
-
-### 1️⃣ **Next.js + Three.js: Crafting 3D Web Experiences**  
-Get ready for practical examples showcasing:  
-- 🌐 Using Next.js for seamless server-side rendering.  
-- 🎨 Integrating Three.js for stunning 3D visuals.  
-- 🚀 Combining these tools to create interactive web experiences.  
-
-### 2️⃣ **Node.js: Building Reliable Server Solutions**  
-We’ll provide updates and examples for:  
-- 🔄 Leveraging Node.js for real-time data handling.  
-- 🌟 Creating scalable server-side applications.  
-- 📡 Implementing APIs to handle large data streams effortlessly.  
-
-### 3️⃣ **NestJS: Developing Enterprise-Grade APIs**  
-Follow along as we explore:  
-- 🏗 Building modular and maintainable server architectures.  
-- 🎯 Utilizing TypeScript to ensure code reliability.  
-- 🌐 Creating robust REST and GraphQL APIs.  
+A roadmap for upcoming updates is provided below. Check the GitHub repository for progressively added technical guides and examples.
 
 ---
 
-💡 **These updates will be added gradually, so stay tuned to our GitHub repository for detailed examples and best practices!**  
+### **Go (Golang)**
+
+- Building efficient HTTP and WebSocket servers
+- In-depth analysis of essential data structures
+- Tips for leveraging Go’s concise syntax and scalability
+
+---
+
+### **Next.js + Three.js**
+
+- Implementing server-side rendering with Next.js
+- Integrating Three.js for 3D visualization
+- Combining these frameworks for interactive web experiences
+
+---
+
+### **Node.js**
+
+- Utilizing Node.js for real-time data processing
+- Designing APIs to handle large data streams
+- Building scalable server-side applications
+
+---
+
+### **NestJS**
+
+- Designing modular and maintainable server architectures
+- Writing reliable code with TypeScript
+- Implementing REST and GraphQL APIs
+
+---
+
+### **FastAPI**
+
+- Asynchronous data handling and API design
+- Managing real-time data flow efficiently
+- Integration examples with AI and image processing systems
+
+---
+
+### **Swift + ARKit**
+
+- Examples utilizing LiDAR sensors with ARKit
+- Real-time 3D modeling and augmented reality visualization
+- Swift-based AR application design guides
+
+---
