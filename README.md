@@ -1,65 +1,29 @@
-# 🚀 Project Update Roadmap - 2025  
-**Copyright (C) 2024 GloryKim**  
-*Contact: [glory@keti.re.kr](mailto:glory@keti.re.kr)*  
+# Project Update Roadmap - 2025
 
----
+**Developed by GloryKim**  
+Contact: [glory@keti.re.kr](mailto:glory@keti.re.kr)
 
-## 📝 Planned Updates
+## Overview
+* Open-source project focused on both backend and frontend development
+* Primary backend technologies: NodeJS, Python(FastAPI,Flask), Go
+* Primary frontend technologies: Swift with ARKit, Next.js, Three.js
+* Occasional use of Go for algorithm challenges
 
-A roadmap for upcoming updates is provided below. Check the GitHub repository for progressively added technical guides and examples.
+## Backend Development
+* **NodeJS**
+  - Real-time data processing
+  - API design for scalable server-side applications
+* **Python(FastAPI, Flask)**
+  - Asynchronous API development
+  - Efficient management of real-time data flow and integration with AI/3D,2D processing systems
+* **Go**
+  - High-performance backend services (LiDAR + ROS1 + ROS2(w.Rust))
+  - Algorithm development and performance-critical tasks
 
----
-
-### **Go (Golang)**
-
-- Building efficient HTTP and WebSocket servers
-- In-depth analysis of essential data structures
-- Tips for leveraging Go’s concise syntax and scalability
-
----
-
-### **Next.js + Three.js**
-
-- Implementing server-side rendering with Next.js
-- Integrating Three.js for 3D visualization
-- Combining these frameworks for interactive web experiences
-
----
-
-### **Node.js**
-
-- Utilizing Node.js for real-time data processing
-- Designing APIs to handle large data streams
-- Building scalable server-side applications
-
----
-
-### **NestJS**
-
-- Designing modular and maintainable server architectures
-- Writing reliable code with TypeScript
-- Implementing REST and GraphQL APIs
-
----
-
-### **FastAPI**
-
-- Asynchronous data handling and API design
-- Managing real-time data flow efficiently
-- Integration examples with AI and image processing systems
-
----
-
-### **Swift + ARKit**
-
-- Examples utilizing LiDAR sensors with ARKit
-- Real-time 3D modeling and augmented reality visualization
-- Swift-based AR application design guides
-
----
-
-### **Rust + Tokio**
-
-- I don't know Rust, Because I'm Junior Developer
-
----
+## Frontend Development
+* **Swift + ARKit**
+  - Augmented reality application design
+  - LiDAR sensor integration for real-time 3D modeling
+* **Next.js + Three.js**
+  - Server-side rendering with Next.js
+  - Interactive 3D visualization using Three.js
