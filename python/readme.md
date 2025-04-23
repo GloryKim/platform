@@ -35,3 +35,5 @@
 - 250113_1323 : DM 특송 순서 자동 재작 SW
 
 - 250307_1015 : Node<->AI를 위한 FastAPI Broker Example
+
+- 250423_1453 : Node<->AI를 위한 FastAPI Async Broker Example
