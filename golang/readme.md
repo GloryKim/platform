@@ -33,3 +33,5 @@
 - 250423_1524 : ros2 Topic과 NextJS와 교환을 위한 중간 브로커 서버
 
 - 250705_1901 : 250705_1900_go_[O]tutorial, 프로젝트 1차 완료, 컴파일 오류가 있어 차츰 수정 예정입니다.
+
+- 250705_1914 : /platform/golang/250705_1900_go_[O]tutorial/basics/arrays_slices.go : 컴파일 오류 수정

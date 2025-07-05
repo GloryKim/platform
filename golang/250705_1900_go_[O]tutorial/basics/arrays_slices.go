@@ -542,13 +542,14 @@ func arrayVsSlice() {
 	slice1 := []int{1, 2, 3}
 	slice2 := []int{1, 2, 3}
 	fmt.Printf("슬라이스 nil 비교: slice1 == nil = %t\n", slice1 == nil)
+	fmt.Printf("슬라이스 nil 비교: slice2 == nil = %t\n", slice2 == nil)
 	fmt.Printf("슬라이스 직접 비교 불가 (컴파일 에러)\n")
 	
 	// 함수 전달 차이점
 	fmt.Println("\n함수 전달 차이점:")
 	
 	// 배열 전달 (값 복사)
-	array := [3]int{1, 2, 3}
+	array := [5]int{1, 2, 3, 4, 5} // 250705_1913_glory : 타입 불일치 오류 수정: modifyArray 함수가 [5]int 타입을 기대하는데 [3]int 타입을 전달하던 문제를 해결
 	fmt.Printf("함수 호출 전 배열: %v\n", array)
 	modifyArray(array)
 	fmt.Printf("함수 호출 후 배열 (변경되지 않음): %v\n", array)
