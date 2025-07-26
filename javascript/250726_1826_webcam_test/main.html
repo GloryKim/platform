@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title> 실시간 웹켐 기능 테스트 프로젝트 </title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: scan-serif;
+                background-color: #f2f2f2;
+            }
+
+            video {
+                margin-top: 20px;
+                width: 640px;
+                height: 480px;
+                background-color: black;
+                border: 2px solid #333;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>실시간 웹켐기능 테스트 </h1>
+        <video id="webcam" autoplay playsinline></video>
+
+        <script>
+            const video = document.getElementById('webcam');
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false})
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) =>{
+                console.error('웹캠 접근 실패:', err);
+                alert('웹캠 접근에 실패했습니다. 연결유무, 브라우저 권한 등을 검토해주세요.');
+            })
+        </script>
+    </body>
+</html>
