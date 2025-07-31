@@ -37,3 +37,5 @@
 - 250307_1015 : Node<->AI를 위한 FastAPI Broker Example
 
 - 250423_1453 : Node<->AI를 위한 FastAPI Async Broker Example
+
+- 250731_1024 : PC에 과부하 걸고 전력이랑 온도 측정 및 분석하는 프로젝트
