@@ -13,3 +13,5 @@
 - 241101_1004_glory : rust 프로젝트에 [dependencies] colored = "2.0" 추가
 
 - 250107_1814_glory : 폴더 병합
+
+- 251217_1710_glory : rust 문법정리

@@ -1,5 +1,3 @@
-# Project Update Roadmap - 2025
-
 **Developed by GloryKim**  
 Contact: [glory@keti.re.kr](mailto:glory@keti.re.kr)
 
