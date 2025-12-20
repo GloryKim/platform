@@ -107,3 +107,5 @@ void recordEvent(string event) {
     eventCount++;
     cout << "이벤트 #" << eventCount << ": " << event << endl;
 }
+
+

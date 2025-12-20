@@ -124,3 +124,5 @@ void printArray(int arr[], int size) {
 void processLargeStruct(const LargeStruct& s) {
     cout << "큰 구조체 처리 완료" << endl;
 }
+
+

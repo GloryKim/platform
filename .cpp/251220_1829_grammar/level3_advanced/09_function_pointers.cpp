@@ -118,3 +118,5 @@ int (*getOperation(char op))(int, int) {
             return nullptr;
     }
 }
+
+

@@ -104,3 +104,5 @@ int main() {
     cout << "\n메인 함수 종료 전" << endl;
     return 0;  // 모든 객체 소멸자 호출
 }
+
+
