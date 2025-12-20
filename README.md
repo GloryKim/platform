@@ -9,6 +9,7 @@ Contact: [glory@keti.re.kr](mailto:glory@keti.re.kr)
 | Realtime | Go · MediaMTX | RTSP / WebRTC, Low Latency |
 | Robotics | Rust · Tokio · ROS2 | Safe Async, Robot Control |
 | Spatial | Swift · ARKit · visionOS | AR/XR, Sensor Fusion |
+| Drivers | C++ · ROS2 · SDK Integration | LiDAR/Camera Drivers, Sensor I/O |
 
 ![NodeJS](https://img.shields.io/badge/NodeJS-339933?style=flat&logo=node.js&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
@@ -18,3 +19,4 @@ Contact: [glory@keti.re.kr](mailto:glory@keti.re.kr)
 ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)
 ![Rust](https://img.shields.io/badge/Rust-000000?style=flat&logo=rust&logoColor=white)
 ![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat&logo=swift&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat&logo=c%2B%2B&logoColor=white)
