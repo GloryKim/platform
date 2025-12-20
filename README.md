@@ -1,7 +1,7 @@
 **Developed by GloryKim**  
 Contact: [glory@keti.re.kr](mailto:glory@keti.re.kr)
 
-![System Tech Stack Flow](.etc/system-tech-stack-flow.png)
+![System Tech Stack Flow](docs/images/system-tech-stack-flow.png)
 
 | Domain | Stack | Focus |
 |------|------|------|
